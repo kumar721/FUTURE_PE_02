@@ -1,0 +1,119 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
+    color: #333;
+    line-height: 1.6;
+    padding: 30px;
+}
+
+/* Container */
+body {
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #222;
+    border-left: 5px solid #007bff;
+    padding-left: 10px;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* Sections */
+section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+section:hover {
+    transform: translateY(-3px);
+}
+
+/* Lists */
+ul, ol {
+    margin-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+/* Highlight Box */
+.highlight {
+    background: #eef5ff;
+    border-left: 4px solid #007bff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Content Box */
+.box {
+    background: #fafafa;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* CTA Style */
+strong {
+    color: #007bff;
+}
+
+/* Buttons (optional if you add later) */
+.button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 15px;
+    }
+}
