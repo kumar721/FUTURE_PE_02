@@ -1,99 +1,84 @@
-@ -0,0 +1,98 @@
-// 🌙 DARK MODE TOGGLE
-const toggleBtn = document.createElement("button");
-toggleBtn.innerText = "🌙 Dark Mode";
-toggleBtn.classList.add("button");
-document.body.prepend(toggleBtn);
+// Wait for DOM to load
+document.addEventListener("DOMContentLoaded", () => {
 
-toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
+  // 🔹 Copy to Clipboard Function
+  function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showNotification("Copied to clipboard!");
+    });
+  }
 
-    if (document.body.classList.contains("dark-mode")) {
-        toggleBtn.innerText = "☀️ Light Mode";
-    } else {
-        toggleBtn.innerText = "🌙 Dark Mode";
-    }
-});
+  // 🔹 Add Copy Buttons to Cards
+  const cards = document.querySelectorAll(".card");
 
-
-// 🎨 DARK MODE STYLES (applied dynamically)
-const darkStyle = document.createElement("style");
-darkStyle.innerHTML = `
-.dark-mode {
-    background: #121212;
-    color: #f1f1f1;
-}
-.dark-mode section {
-    background: #1e1e1e;
-    color: #ddd;
-}
-.dark-mode h2 {
-    border-left: 5px solid #66aaff;
-}
-.dark-mode .box {
-    background: #2a2a2a;
-    border: 1px solid #444;
-}
-`;
-document.head.appendChild(darkStyle);
-
-
-// 📋 COPY TO CLIPBOARD BUTTONS
-const boxes = document.querySelectorAll(".box, .highlight");
-
-boxes.forEach((box) => {
+  cards.forEach(card => {
     const btn = document.createElement("button");
     btn.innerText = "Copy";
-    btn.classList.add("button");
-    btn.style.float = "right";
-    btn.style.marginBottom = "10px";
-
-    box.prepend(btn);
+    btn.style.marginTop = "10px";
+    btn.style.padding = "5px 10px";
+    btn.style.border = "none";
+    btn.style.borderRadius = "5px";
+    btn.style.cursor = "pointer";
+    btn.style.background = "#28a745";
+    btn.style.color = "#fff";
 
     btn.addEventListener("click", () => {
-        const text = box.innerText.replace("Copy", "").trim();
-
-        navigator.clipboard.writeText(text).then(() => {
-            btn.innerText = "Copied!";
-            setTimeout(() => (btn.innerText = "Copy"), 1500);
-        });
+      copyText(card.innerText);
     });
-});
 
+    card.appendChild(btn);
+  });
 
-// 🎯 SMOOTH SCROLL (for anchor links)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        target.scrollIntoView({
-            behavior: "smooth"
-        });
-    });
-});
+  // 🔹 Toggle Sections
+  const sections = document.querySelectorAll("section");
 
+  sections.forEach(section => {
+    const header = section.querySelector("h2");
 
-// ✨ SCROLL REVEAL ANIMATION
-const sections = document.querySelectorAll("section");
+    header.style.cursor = "pointer";
 
-const reveal = () => {
-    sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+    header.addEventListener("click", () => {
+      const content = Array.from(section.children).slice(1);
 
-        if (top < windowHeight - 100) {
-            section.style.opacity = 1;
-            section.style.transform = "translateY(0)";
+      content.forEach(el => {
+        if (el.style.display === "none") {
+          el.style.display = "block";
+        } else {
+          el.style.display = "none";
         }
+      });
     });
-};
+  });
 
-// Initial hidden state
-sections.forEach(section => {
-    section.style.opacity = 0;
-    section.style.transform = "translateY(40px)";
-    section.style.transition = "all 0.6s ease";
+  // 🔹 Smooth Scroll for Links (if added later)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute("href"))
+        .scrollIntoView({ behavior: "smooth" });
+    });
+  });
+
+  // 🔹 Notification System
+  function showNotification(message) {
+    let notif = document.createElement("div");
+    notif.innerText = message;
+
+    notif.style.position = "fixed";
+    notif.style.bottom = "20px";
+    notif.style.right = "20px";
+    notif.style.background = "#333";
+    notif.style.color = "#fff";
+    notif.style.padding = "10px 15px";
+    notif.style.borderRadius = "8px";
+    notif.style.boxShadow = "0 3px 10px rgba(0,0,0,0.2)";
+    notif.style.zIndex = "1000";
+
+    document.body.appendChild(notif);
+
+    setTimeout(() => {
+      notif.remove();
+    }, 2000);
+  }
+
 });
-
-window.addEventListener("scroll", reveal);
-reveal();
